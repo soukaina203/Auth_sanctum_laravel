@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\SignupController;
+use App\Http\Controllers\userController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -15,7 +15,8 @@ use App\Http\Controllers\SignupController;
 |
 */
 
-Route::post('/signUp',[SignupController::class,'signup']);
+Route::post('/signUp',[userController::class,'signup']);
+Route::post('/login',[userController::class,'login']);
 Route::middleware('auth:sanctum')->group(function () {
 
 });
