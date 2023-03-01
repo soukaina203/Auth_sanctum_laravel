@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\userController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ClientController;
-use App\Http\Controllers\suplierController;
+use App\Http\Controllers\supplierController;
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', function (Request $request) {
@@ -41,14 +41,22 @@ Route::group(['middleware'=> ['auth:sanctum']], function(){
     });
 // CRUD  fournisseur
 
-Route::controller(suplierController::class)->group(function () {
-    Route::get('/clients', 'index');
-    Route::get('/client/{id}', 'show');
-    Route::get('/client/edit/{id}', 'edit');
+Route::controller(supplierController::class)->group(function () {
+    Route::get('/suppliers', 'index');
+    Route::get('/supplier/{id}', 'show');
+    Route::get('/supplier/edit/{id}', 'edit');
 
-    Route::post('/client/add', 'store');
-    Route::patch('/client/{id}', 'update');
+    Route::post('/supplier/add', 'store');
+    Route::patch('/supplier/{id}', 'update');
 
-    Route::delete('/client/d/{id}', 'destroy');
+    Route::delete('/supplier/d/{id}', 'destroy');
 });
 });
+// $table->string('FullName');
+// $table->string('phoneNumber');
+// $table->string('email');
+// $table->string('Localisation');
+// $table->string('fonction');
+// $table->string('otherContact');
+// $table->string('rating');
+// protected $fillable=['FullName','phoneNumber','email','Localisation','fonction','otherContact','rating'];
