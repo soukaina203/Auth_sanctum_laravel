@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+
 class ProductController extends Controller
 {
     /**
@@ -34,7 +35,7 @@ class ProductController extends Controller
         $Products->save();
 
         return response()->json([
-            'message'=>'Item added successfully'
+            'message' => 'Item added successfully'
         ]);
     }
 
@@ -54,7 +55,6 @@ class ProductController extends Controller
         return response()->json([
             'product' => $product
         ]);
-
     }
 
     public function update(Request $request, $id)
@@ -74,11 +74,10 @@ class ProductController extends Controller
 
     public function destroy($id)
     {
+print("hello");
         $Product = Product::findOrFail($id);
 
         $Product->delete();
-
-
+        return "great";
     }
-
 }
