@@ -64,6 +64,11 @@ class ClientController extends Controller
 
     public function destroy(string $id)
     {
-        //
+        $client = Client::findOrFail($id);
+
+        $client->delete();
+        return response()->json([
+            'message' => 'Item updated successfully'
+        ]);
     }
 }
