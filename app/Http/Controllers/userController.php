@@ -24,10 +24,9 @@ class userController extends Controller
         $user = User::create([
             "name" => $request->name,
             "email" => $request->email,
-            "password" =>Hash::make( $request->password),
+            "password" => Hash::make($request->password),
 
         ]);
-
     }
 
 
@@ -35,27 +34,26 @@ class userController extends Controller
     public function login(LoginRequest $request)
     {
         $request->validated($request->all());
-     if (!Auth::attempt($request->only('email', 'password'))) {
+        if (!Auth::attempt($request->only('email', 'password'))) {
             throw ValidationException::withMessages([
                 'email' => 'Invalid credentials',
             ]);
         }
-        print('good');
-        $user=User::where('email',$request->email)->first();
+        $user = User::where('email', $request->email)->first();
         // return $this->success([
         //     'user'=>$user,
         //     'token'=> $user->createToken('Api Token of '.$user->name)->plainTextToken
         // ]);
 
 
-            $token = $user->createToken('Api Token of '.$user->name)->plainTextToken;
-//
+        $token = $user->createToken('Api Token of ' . $user->name)->plainTextToken;
+        //
 
 
         return response()->json(['token' => $token]);
     }
-    public function logout(){
+    public function logout()
+    {
         return Auth::logout();
     }
-
 }
