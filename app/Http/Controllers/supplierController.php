@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Supplier;
 
 class supplierController extends Controller
 {
@@ -11,23 +12,33 @@ class supplierController extends Controller
      */
     public function index()
     {
-        //
+        $data = Supplier::all();
+        return response()->json($data);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        //
-    }
+
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        //
+        $Clients = new Supplier([
+            "FullName" => $request->input('FullName'),
+            "phoneNumber" => $request->input('phoneNumber'),
+            "email" => $request->input('email'),
+            "Localisation" => $request->input('Localisation'),
+            "fonction" => $request->input('fonction'),
+            "otherContact" => $request->input('otherContact'),
+            "rating" => $request->input('rating'),
+        ]);
+        $Clients->save();
+        return response()->json([
+            'message'=>'Item added successfully'
+        ]);
     }
 
     /**
@@ -35,7 +46,10 @@ class supplierController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $Supplier = Supplier::findOrFail($id);
+        return response()->json([
+            'Supplier' => $Supplier
+        ]);
     }
 
     /**
@@ -43,7 +57,10 @@ class supplierController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $Supplier = Supplier::findOrFail($id);
+        return response()->json([
+            'Supplier' => $Supplier
+        ]);
     }
 
     /**
@@ -51,7 +68,21 @@ class supplierController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $client = Supplier::findOrFail($id);
+
+        $client->FullName = $request->input('FullName');
+        $client->phoneNumber = $request->input('phoneNumber');
+        $client->email = $request->input('email');
+        $client->Localisation = $request->input('Localisation');
+        $client->fonction = $request->input('fonction');
+        $client->otherContact = $request->input('otherContact');
+        $client->rating = $request->input('rating');
+
+        $client->update();
+        $client->save();
+        return response()->json([
+            'message' => 'Item updated successfully'
+        ]);
     }
 
     /**
@@ -59,6 +90,12 @@ class supplierController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $Supplier = Supplier::findOrFail($id);
+
+        $Supplier->delete();
+        return response()->json([
+            'message' => 'Item updated successfully'
+        ]);
     }
+
 }
