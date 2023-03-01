@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\userController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ClientController;
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', function (Request $request) {
@@ -15,11 +16,19 @@ Route::post('/signUp',[userController::class,'signup']);
 Route::post('/login',[userController::class,'login']);
 
 Route::group(['middleware'=> ['auth:sanctum']], function(){
+    Route::controller(ProductController::class)->group(function () {
+        Route::get('/products', 'index');
+        Route::get('/Products/{id}', 'show');
+        Route::get('/Products/{id}/edit', 'edit');
+        Route::post('/Products', 'store');
+        Route::patch('/Products/{id}', 'update');
+    }    );
+    Route::controller(ClientController::class)->group(function () {
+        Route::get('/clients', 'index');
+        Route::get('/client/{id}', 'show');
+        Route::get('/client/{id}/edit', 'edit');
+        Route::post('/client', 'store');
+        Route::patch('/client/{id}', 'update');
+    });
 
-    Route::get('/product/get', [ProductController::class,'index']);
-    Route::get('/product/show/{id}', [ProductController::class,'show']);
-    Route::post('/product/add', [ProductController::class,'store']);
-    Route::get('/product/edit/{id}', [ProductController::class,'edit']);
-    Route::patch('/product/{id}', [ProductController::class,'update']);
-    Route::post('/product/delete/{id}', [ProductController::class,'destroy']);
 });
