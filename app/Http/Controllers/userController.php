@@ -15,12 +15,6 @@ class userController extends Controller
     public function signup(Request $request)
     {
 
-        // $request->validate([
-        //     'name' => 'required',
-        //     'email' => 'required|email|unique:users,email',
-        //     'password' => 'required|min:6|confirmed',
-        // ]);
-
         $user = User::create([
             "name" => $request->name,
             "email" => $request->email,
@@ -40,20 +34,12 @@ class userController extends Controller
             ]);
         }
         $user = User::where('email', $request->email)->first();
-        // return $this->success([
-        //     'user'=>$user,
-        //     'token'=> $user->createToken('Api Token of '.$user->name)->plainTextToken
-        // ]);
-
-
         $token = $user->createToken('Api Token of ' . $user->name)->plainTextToken;
-        //
-
-
         return response()->json(['token' => $token]);
     }
     public function logout()
     {
         return Auth::logout();
     }
+
 }
