@@ -9,5 +9,7 @@ class Client extends Model
 {
     use HasFactory;
     protected $fillable=['FullName','phoneNumber','email','otherContact','fidalite'];
-
+    public function company(){
+        return $this->belongsTo(Company::class);
+    }
 }
